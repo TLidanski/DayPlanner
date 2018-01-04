@@ -1,3 +1,4 @@
+package storage;
 import java.io.File;
 import java.util.LinkedList;
 
@@ -5,6 +6,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+
+import event.Event;
+import event.EventDTO;
 
 public class XMLEventStorage implements IEventStorage {
 	private final String filePath;

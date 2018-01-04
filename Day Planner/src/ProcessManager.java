@@ -1,7 +1,14 @@
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
+
+import event.Event;
+import io.IOParser;
+import storage.IEventStorage;
+import storage.XMLEventStorage;
 
 public class ProcessManager {
 	
@@ -17,6 +24,12 @@ public class ProcessManager {
 		
 		LinkedList<Event> eventsList = (storage.isStorageFileEmpty()) ?
 				new LinkedList<Event>() : storage.readEvents();
+			
+		Event event;		
+		LocalDate eventDate;
+		String eventTime;
+		String eventDesc;
+		String id;
 		
 		Scanner sc = new Scanner(System.in);
 		int i;
@@ -26,11 +39,11 @@ public class ProcessManager {
 			i = sc.nextInt();
 			switch (i) {
 			case 1:
-				String eventDate = parser.readEventDate();
-				String eventTime = parser.readEventTime();
-				String eventDesc = parser.readEventDescription();
+				eventDate = parser.readEventDate();
+				eventTime = parser.readEventTime();
+				eventDesc = parser.readEventDescription();
 				
-				Event event = new Event(eventDate, eventTime, eventDesc);
+				event = new Event(eventDate, eventTime, eventDesc);
 				
 				eventsList.add(event);
 				break;
@@ -39,9 +52,32 @@ public class ProcessManager {
 				parser.printEvents(eventsList);
 				break;
 			case 3:
+				id = parser.readEventId();
+				boolean idExists = false;
+				
+				for (Iterator<Event> iterator = eventsList.iterator(); iterator.hasNext();) {
+					Event currEvent = iterator.next();
+					if(currEvent.getId().toString().equals(id)) {
+						idExists = true;
+						
+						eventDate = parser.readEventDate();
+						eventTime = parser.readEventTime();
+						eventDesc = parser.readEventDescription();
+						
+						currEvent.setDate(eventDate);
+						currEvent.setTime(eventTime);
+						currEvent.setDescription(eventDesc);
+					}
+				}
+				
+				if(!idExists)
+					System.out.println("The provided id doesn't exist!\n");
 				break;
 				
 			case 4:
+				final String idToDelete = parser.readEventId();
+				
+				eventsList.removeIf(e -> e.getId().toString().equals(idToDelete));
 				break;
 				
 			case 5:

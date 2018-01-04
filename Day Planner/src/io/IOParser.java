@@ -1,16 +1,26 @@
+package io;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import event.Event;
 
 public class IOParser {
 	
-	public String readEventDate() {
-		String date = new String();;
+	public LocalDate readEventDate() {
+		LocalDate date = null;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+				
+		String dateStr = new String();
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 		
 		try {
-			System.out.println("Enter the event's date\n");
-			date = input.readLine(); // Validate the date
+			System.out.println("Enter the event's date [Format: dd-MM-yyyy]\n");
+			dateStr = input.readLine(); // Validate the date
+			
+			date = LocalDate.parse(dateStr, formatter);
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -19,12 +29,12 @@ public class IOParser {
 	}
 	
 	public String readEventTime() {
-		String time = new String();;
+		String time = new String();
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 		
 		try {
 			System.out.println("Enter the event's start time\n");
-			time = input.readLine(); // Validate the date
+			time = input.readLine(); // Validate the time
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -33,17 +43,31 @@ public class IOParser {
 	}
 	
 	public String readEventDescription() {
-		String description = new String();;
+		String description = new String();
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 		
 		try {
 			System.out.println("Enter the event's description\n");
-			description = input.readLine(); // Validate the date
+			description = input.readLine(); 
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
 		
 		return description;
+	}
+	
+	public String readEventId() {
+		String id = null;
+		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+		
+		try {
+			System.out.println("Enter the event's id\n");
+			id = input.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return id;
 	}
 	
 //	public int readEventsMenu(int menuNum) {

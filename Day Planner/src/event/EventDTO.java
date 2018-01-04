@@ -1,3 +1,4 @@
+package event;
 import java.util.LinkedList;
 
 import javax.xml.bind.annotation.XmlElement;
