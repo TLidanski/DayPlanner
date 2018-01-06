@@ -1,5 +1,6 @@
 package event;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -13,13 +14,13 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class Event {
 	private UUID id;
 	private LocalDate date;
-	private String time;
+	private LocalTime time;
 	private String description;
 	
 	public Event() {
 	}
 	
-	public Event(LocalDate date, String time, String description) {
+	public Event(LocalDate date, LocalTime time, String description) {
 		id = UUID.randomUUID();
 		this.date = date;
 		this.time = time;
@@ -43,7 +44,8 @@ public class Event {
 	}
 
 	@XmlElement(name = "Time")
-	public String getTime() {
+	@XmlJavaTypeAdapter(value = LocalTimeAdapter.class)
+	public LocalTime getTime() {
 		return time;
 	}
 
@@ -52,7 +54,7 @@ public class Event {
 		this.date = date;
 	}
 
-	public void setTime(String time) {
+	public void setTime(LocalTime time) {
 		this.time = time;
 	}
 
