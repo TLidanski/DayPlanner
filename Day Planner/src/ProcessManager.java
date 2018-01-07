@@ -68,6 +68,16 @@ public class ProcessManager {
 							
 							TableRenderer.renderDayTable(eventDate, tempEvents);
 						break;
+						
+						case 3:
+							int weekNum = parser.readWeekNumber();
+							TableRenderer.renderWeekTable(weekNum, eventsList);
+						break;
+						
+						case 4:
+							TableRenderer.renderMonthTable(eventsList);
+						break;
+						
 						default:
 						break;
 					}

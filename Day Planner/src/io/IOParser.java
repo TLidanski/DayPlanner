@@ -10,6 +10,8 @@ import event.Event;
 
 public class IOParser {
 	
+	private static final String SUBMENU = "1-All events in a list\n2-All Events for a given day\n3-All Events for a given week\n4-All events this month\n5-Events between two dates";
+
 	public LocalDate readEventDate() {
 		LocalDate date = null;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -79,7 +81,7 @@ public class IOParser {
 	public int readSubMenu() {
 		int select = 0;
 		try {		
-			System.out.println("1-All events in a list\n2-All Events for a given day\n3-All Events for a given week\n4-All events this month\n5-Events between two dates");
+			System.out.println(SUBMENU);
 				
 			BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 			String inputString = input.readLine();
@@ -91,6 +93,20 @@ public class IOParser {
 		}
 		
 		return select;
+	}
+	
+	public int readWeekNumber() {
+		int weekNum = 0;
+		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+		
+		try {
+			System.out.println("Enter the week's number\n");
+			weekNum = Integer.parseInt(input.readLine());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return weekNum;
 	}
 	
 	public void printEvents(Iterable<Event> events) {

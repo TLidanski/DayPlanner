@@ -40,7 +40,7 @@ public class XMLEventStorage implements IEventStorage {
 		} catch(JAXBException e) {
 			e.printStackTrace();
 		}
-	};
+	}
 	
 	public LinkedList<Event> readEvents() {
 		LinkedList<Event> eventsList = new LinkedList<Event>();
