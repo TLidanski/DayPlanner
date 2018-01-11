@@ -1,6 +1,6 @@
 package event;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -9,21 +9,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import event.repository.ZonedDateTimeAdapter;
+
 @XmlRootElement
-@XmlType(propOrder = {"date", "time", "description"})
+@XmlType(propOrder = {"date", "description"})
 public class Event {
 	private UUID id;
-	private LocalDate date;
-	private LocalTime time;
+	private ZonedDateTime date;
 	private String description;
 	
-	public Event() {
-	}
+	public Event() {}
 	
-	public Event(LocalDate date, LocalTime time, String description) {
-		id = UUID.randomUUID();
+	public Event(UUID id, ZonedDateTime date, String description) {
+		this.id = id;
 		this.date = date;
-		this.time = time;
 		this.description = description;
 	}
 	
@@ -32,37 +31,26 @@ public class Event {
 		return id;
 	}
 
-	@XmlElement(name = "Date")
-	@XmlJavaTypeAdapter(value = LocalDateAdapter.class)
-	public LocalDate getDate() {
-		return date;
+	public void setId(UUID id) {
+		this.id = id;
+	}
+	
+	@XmlElement
+	@XmlJavaTypeAdapter(value = ZonedDateTimeAdapter.class)
+	public ZonedDateTime getDate() {
+		return date.withZoneSameInstant(ZoneId.systemDefault());
+	}
+	
+	public void setDate(ZonedDateTime date) {
+		this.date = date;
 	}
 
-	@XmlElement(name = "Description")
+	@XmlElement
 	public String getDescription() {
 		return description;
 	}
 
-	@XmlElement(name = "Time")
-	@XmlJavaTypeAdapter(value = LocalTimeAdapter.class)
-	public LocalTime getTime() {
-		return time;
-	}
-
-	// Adding the setters so that the unmarshalling doesn't return null values
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
-
-	public void setTime(LocalTime time) {
-		this.time = time;
-	}
-
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
 	}
 }
