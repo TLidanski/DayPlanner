@@ -1,7 +1,7 @@
 package event.dto;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -10,22 +10,18 @@ import event.Event;
 
 @XmlRootElement(name = "events")
 public class EventsXmlWrapper {
-	private final List<Event> eventsList;
+	private final Collection<Event> eventsList;
 	
 	public EventsXmlWrapper() {
 		eventsList = new ArrayList<Event>();
 	}
 	
-	public EventsXmlWrapper(List<Event> eventList) {
+	public EventsXmlWrapper(Collection<Event> eventList) {
 		this.eventsList = eventList;
 	}
 	
-	public EventsXmlWrapper(Iterable<Event> eventList) {
-		this.eventsList = (List<Event>) eventList;
-	}
-	
 	@XmlElement(name = "event")
-	public List<Event> getEventsList() {
+	public Collection<Event> getEventsList() {
 		return eventsList;
 	}
 }

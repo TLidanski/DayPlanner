@@ -31,7 +31,7 @@ public class TableRenderer {
 		ZonedDateTime week = ZonedDateTime.now(zone).with(ChronoField.ALIGNED_WEEK_OF_MONTH, weekNum);
 		ZonedDateTime start = week.with(DayOfWeek.MONDAY);
 		
-		for(int i = 0; i < 6; i++) {
+		for(int i = 0; i < 7; i++) {
 			LocalDate currDate = start.plusDays(i).toLocalDate();
 			renderDayTable(currDate, events, outStream);
 		}

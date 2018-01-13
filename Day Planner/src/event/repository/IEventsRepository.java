@@ -2,19 +2,23 @@ package event.repository;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
-import java.util.List;
+import java.util.Collection;
 import java.util.UUID;
 
 import event.Event;
 
 public interface IEventsRepository extends AutoCloseable {
-	void writeEvents(Iterable<Event> eventsList);
+	public Collection<Event> getEvents();
 	
-	void updateEvent(List<Event> eventsList, String id, ZonedDateTime date, String description);
+	void create(ZonedDateTime date, String description);
 	
-	void removeEvent(UUID id, List<Event> eventsList);
+	void writeEvents(Collection<Event> events);
 	
-	List<Event> readEvents();
+	void update(UUID id, ZonedDateTime date, String description);
 	
-	List<Event> getEventsBetweenDates(LocalDate fromDate, LocalDate toDate, Iterable<Event> eventsList);
+	void delete(UUID id);
+	
+	Collection<Event> getAll();
+	
+	Collection<Event> getInRange(LocalDate fromDate, LocalDate toDate);
 }
