@@ -17,7 +17,7 @@ public class PrintEventsInRangeItem implements IMenuItem {
 	private IEventsRepository repo;
 	
 	private static final String TITLE = "5-Events between two dates";
-	private static final String DATE_PROMPT = "Enter the date [Format: dd-MM-yyyy HH:mm]\n";
+	private static final String DATE_PROMPT = "Enter the date [Format: dd-MM-yyyy]\n";
 	
 	public PrintEventsInRangeItem(IEventsRepository repo) {
 		title = TITLE;
@@ -29,8 +29,8 @@ public class PrintEventsInRangeItem implements IMenuItem {
 	}
 	
 	public void execute() {
-		LocalDate fromDate = IOParser.readDateTime(System.in, System.out, DATE_PROMPT).toLocalDate();
-		LocalDate toDate = IOParser.readDateTime(System.in, System.out, DATE_PROMPT).toLocalDate();
+		LocalDate fromDate = IOParser.readDate(System.in, System.out, DATE_PROMPT);
+		LocalDate toDate = IOParser.readDate(System.in, System.out, DATE_PROMPT);
 		
 		List<Event> events = (List<Event>) repo.getInRange(fromDate, toDate);
 		WeekFields weekFields = WeekFields.of(Locale.getDefault());

@@ -25,7 +25,7 @@ public class Menu {
 		if(i <= items.size()) {
 			items.get(i - 1).execute();
 		} else {
-			if(i != 5)
+			if(i != items.size())
 				System.out.println(INVALID);
 		}
 	}

@@ -8,7 +8,7 @@ import java.util.UUID;
 import event.Event;
 
 public interface IEventsRepository extends AutoCloseable {
-	public Collection<Event> getEvents();
+	Collection<Event> getEvents();
 	
 	void create(ZonedDateTime date, String description);
 	

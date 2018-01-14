@@ -7,6 +7,7 @@ import event.repository.IEventsRepository;
 import event.repository.XmlEventsRepository;
 import ui.console.menu.AddEventItem;
 import ui.console.menu.DeleteEventItem;
+import ui.console.menu.ExitItem;
 import ui.console.menu.GetEventsItem;
 import ui.console.menu.IMenuItem;
 import ui.console.menu.Menu;
@@ -28,9 +29,9 @@ public class ProcessManager {
 			IMenuItem get = new GetEventsItem(repo);
 			IMenuItem update = new UpdateEventItem(repo);
 			IMenuItem delete = new DeleteEventItem(repo);
+			IMenuItem exit = new ExitItem();
 			
-			
-			Menu menu = new Menu(add, get, update, delete);
+			Menu menu = new Menu(add, get, update, delete, exit);
 			do {				
 				menu.printItems();
 				

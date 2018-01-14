@@ -1,6 +1,6 @@
 package ui.console.menu.submenu;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 
 import event.repository.IEventsRepository;
 import io.utils.IOParser;
@@ -12,7 +12,7 @@ public class PrintEventsForADayItem implements IMenuItem {
 	private IEventsRepository repo;
 	
 	private static final String TITLE = "2-All Events for a given day\n";
-	private static final String DATE_PROMPT = "Enter the date [Format: dd-MM-yyyy HH:mm]\n";
+	private static final String DATE_PROMPT = "Enter the date [Format: dd-MM-yyyy]\n";
 	
 	public PrintEventsForADayItem(IEventsRepository repo) {
 		title = TITLE;
@@ -24,8 +24,8 @@ public class PrintEventsForADayItem implements IMenuItem {
 	}
 	
 	public void execute() {
-		ZonedDateTime eventDateTime = IOParser.readDateTime(System.in, System.out, DATE_PROMPT);
+		LocalDate eventDate = IOParser.readDate(System.in, System.out, DATE_PROMPT);
 		
-		TableRenderer.renderDayTable(eventDateTime.toLocalDate(), repo.getEvents(), System.out);
+		TableRenderer.renderDayTable(eventDate, repo.getEvents(), System.out);
 	}
 }
